@@ -42,10 +42,12 @@
 
         /* CONTEXT INIT */
 
+        var KGE = KIEVII.graphicElements;
+
         var plugin_canvas = document.getElementById("plugin"),
             plugin_context = plugin_canvas.getContext("2d");
 
-        ui = new UI (plugin_canvas);
+        ui = new KIEVII.UI (plugin_canvas);
 
         var imageDisplayer = new CanvasDrawImage (plugin_context);
         var freqKnobImageDisplayer = new CanvasDrawImage (plugin_context);
@@ -65,7 +67,7 @@
             onComplete: loadCallback
         };
 
-        var gui = new Background("background", [0,0], bgArgs);
+        var gui = new KGE.Background("background", [0,0], bgArgs);
 
         /* END OF BACKGROUND INIT */
 
@@ -101,17 +103,17 @@
         // PITCH KNOB
         var pitchArgs = knobArgs.clone();
         pitchArgs.onValueSet = pitchCallback();
-        var pitchKnob = new Knob("pitchKnob", [67, 150], pitchArgs);
+        var pitchKnob = new KGE.Knob("pitchKnob", [67, 150], pitchArgs);
 
         // FREQ KNOB
         var freqArgs = knobArgs.clone();
         freqArgs.onValueSet = freqCallback();
-        var freqKnob = new Knob("freqKnob", [268, 150], freqArgs);
+        var freqKnob = new KGE.Knob("freqKnob", [268, 150], freqArgs);
 
         // Q KNOB
         var qArgs = knobArgs.clone();
         qArgs.onValueSet = qCallback();
-        var qKnob = new Knob("qKnob", [421, 150], qArgs);
+        var qKnob = new KGE.Knob("qKnob", [421, 150], qArgs);
 
         /* END OF KNOB INIT */
 
@@ -125,7 +127,7 @@
         };
 
         volSliderArgs.onValueSet = volCallback();
-        var volSlider = new Slider("volSlider", [646, 136], volSliderArgs);
+        var volSlider = new KGE.Slider("volSlider", [646, 136], volSliderArgs);
 
         /* END OF FADER INIT */
 
@@ -142,10 +144,10 @@
         };
 
         // Create the switch objects TODO the x,y values are not coherent.
-        var pitchOnSwitch = new Button("pitchOnSwitch", [89,107], switchArgs);
-        var pitchDiscSwitch = new Button("pitchDiscSwitch", [89,339], switchArgs);
-        var freqSwitch = new Button("freqSwitch", [365,107], switchArgs);
-        var invertSwitch = new Button("invertSwitch", [638,415], switchArgs);
+        var pitchOnSwitch = new KGE.Button("pitchOnSwitch", [89,107], switchArgs);
+        var pitchDiscSwitch = new KGE.Button("pitchDiscSwitch", [89,339], switchArgs);
+        var freqSwitch = new KGE.Button("freqSwitch", [365,107], switchArgs);
+        var invertSwitch = new KGE.Button("invertSwitch", [638,415], switchArgs);
 
         /* END OF SWITCHES INIT */
 

@@ -1,17 +1,19 @@
-function Background(name, topleft, specArgs) {
+KIEVII.namespace('graphicElements.Background');
+
+KIEVII.graphicElements.Background = function (name, topleft, specArgs) {
     if (arguments.length) {
         this.getready(name, topleft, specArgs);
     }
 }
 
 //inherit from the Element prototype
-Background.prototype = new Element();
+KIEVII.graphicElements.Background.prototype = new KIEVII.graphicElements.Element();
 //put the correct constructor reference back (not essential)
-Background.prototype.constructor = Background;
+KIEVII.graphicElements.Background.prototype.constructor = KIEVII.graphicElements.Background;
 
-Background.prototype.getready = function (name, topleft, specArgs) {
+KIEVII.graphicElements.Background.prototype.getready = function (name, topleft, specArgs) {
     //reference the getready method from the parent class
-    this.tempReady = Element.prototype.getready;
+    this.tempReady = KIEVII.graphicElements.Element.prototype.getready;
     //and run it as if it were part of this object
     this.tempReady(name, topleft, specArgs);
 
@@ -30,11 +32,11 @@ Background.prototype.getready = function (name, topleft, specArgs) {
 };
 
 // This method returns the image object.
-Background.prototype.GetImage = function () {
+KIEVII.graphicElements.Background.prototype.GetImage = function () {
     return this.image;
 };
 
-Background.prototype.onLoad = function (that) {
+KIEVII.graphicElements.Background.prototype.onLoad = function (that) {
     // A closure stores the class' instance "this""
     return function () {
         that.objectsLoaded += 1;
@@ -45,7 +47,7 @@ Background.prototype.onLoad = function (that) {
 
 
 // This methods returns true if the point given belongs to this element.
-Background.prototype.isInROI = function (x, y) {
+KIEVII.graphicElements.Background.prototype.isInROI = function (x, y) {
     if ((x > this.xOrigin) && (y > this.yOrigin)) {
         if ((x < (this.xOrigin + this.width)) && (y < (this.yOrigin + this.height))) {
             //console.log(this.name, " ROI Handler: ", x, y, " is in ROI ", this.xOrigin, this.yOrigin, this.xOrigin + this.width, this.yOrigin + this.height);
@@ -56,7 +58,7 @@ Background.prototype.isInROI = function (x, y) {
     }
 };
 
-Background.prototype.refresh = function () {
+KIEVII.graphicElements.Background.prototype.refresh = function () {
     if (this.drawClass === undefined) {
         throw new Error("Error: drawClass is undefined!");
     }
@@ -67,13 +69,13 @@ Background.prototype.refresh = function () {
     }
 };
 
-Background.prototype.onCompletion = function () {
+KIEVII.graphicElements.Background.prototype.onCompletion = function () {
     // Now, we can store width and height safely.
     this.width = this.image.width;
     this.height = this.image.height;
 
     // Now, we call the superclass
-    this.tempCompletion = Element.prototype.onCompletion;
+    this.tempCompletion = KIEVII.graphicElements.Element.prototype.onCompletion;
     this.tempCompletion();
 
 };

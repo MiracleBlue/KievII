@@ -1,22 +1,24 @@
-function Button(name, topleft, specArgs) {
+KIEVII.namespace('graphicElements.Button');
+
+KIEVII.graphicElements.Button = function (name, topleft, specArgs) {
     if (arguments.length) {
         this.getready(name, topleft, specArgs);
     }
 }
 
 //inherit from the Element prototype
-Button.prototype = new Element();
+KIEVII.graphicElements.Button.prototype = new KIEVII.graphicElements.Element();
 //put the correct constructor reference back (not essential)
-Button.prototype.constructor = Button;
+KIEVII.graphicElements.Button.prototype.constructor = KIEVII.graphicElements.Button;
 
-Button.prototype.getready = function (name, topleft, specArgs) {
+KIEVII.graphicElements.Button.prototype.getready = function (name, topleft, specArgs) {
 
     if (specArgs === undefined) {
         throw new Error("Error: specArgs is undefined!");
     }
 
     //reference the getready method from the parent class
-    this.tempReady = Element.prototype.getready;
+    this.tempReady = KIEVII.graphicElements.Element.prototype.getready;
     //and run it as if it were part of this object
     this.tempReady(name, topleft, specArgs);
 
@@ -56,7 +58,7 @@ Button.prototype.getready = function (name, topleft, specArgs) {
 
 };
 
-Button.prototype.onLoad = function (that) {
+KIEVII.graphicElements.Button.prototype.onLoad = function (that) {
     return function () {
         that.objectsLoaded += 1;
         if (that.objectsLoaded === that.objectsTotal) {
@@ -69,7 +71,7 @@ Button.prototype.onLoad = function (that) {
 
 // This method returns an image index given the value.
 /*jslint nomen: false*/
-Button.prototype._getImageNum = function () {
+KIEVII.graphicElements.Button.prototype._getImageNum = function () {
 /*jslint nomen: true*/
     if ((this.values.buttonvalue < 0) || (this.values.buttonvalue > 1)) {
         // Do nothing
@@ -82,7 +84,7 @@ Button.prototype._getImageNum = function () {
 
 // This method returns an image object given the value.
 /*jslint nomen: false*/
-Button.prototype._getImage = function () {
+KIEVII.graphicElements.Button.prototype._getImage = function () {
 /*jslint nomen: true*/
 
     /*jslint nomen: false*/
@@ -93,7 +95,7 @@ Button.prototype._getImage = function () {
 };
 
 // This method returns true if the point given belongs to this button.
-Button.prototype.isInROI = function (x, y) {
+KIEVII.graphicElements.Button.prototype.isInROI = function (x, y) {
     if ((x >= this.xOrigin) && (y >= this.yOrigin)) {
         if ((x <= (this.xOrigin + this.width)) && (y <= (this.yOrigin + this.height))) {
             //console.log(this.name, " point ", x, y, " is in ROI ", this.xOrigin, this.yOrigin, this.xOrigin + this.width, this.yOrigin + this.height);
@@ -105,7 +107,7 @@ Button.prototype.isInROI = function (x, y) {
     return false;
 };
 
-Button.prototype.onMouseDown = function (x, y) {
+KIEVII.graphicElements.Button.prototype.onMouseDown = function (x, y) {
 
     console.log ("Click down on ", x, y);
 
@@ -115,7 +117,7 @@ Button.prototype.onMouseDown = function (x, y) {
     return undefined;
 };
 
-Button.prototype.onMouseUp = function (curr_x, curr_y) {
+KIEVII.graphicElements.Button.prototype.onMouseUp = function (curr_x, curr_y) {
 
     var to_set = 0,
         ret = {};
@@ -142,7 +144,7 @@ Button.prototype.onMouseUp = function (curr_x, curr_y) {
 };
 
 // Setters
-Button.prototype.setValue = function (slot, value) {
+KIEVII.graphicElements.Button.prototype.setValue = function (slot, value) {
     var temp_value = value;
 
     if ((temp_value < 0) || (temp_value > 1)) {
@@ -152,12 +154,12 @@ Button.prototype.setValue = function (slot, value) {
     }
 
     // Now, we call the superclass
-    this.tempsetValue = Element.prototype.setValue;
+    this.tempsetValue = KIEVII.graphicElements.Element.prototype.setValue;
     this.tempsetValue(slot, value);
 
 };
 
-Button.prototype.refresh = function () {
+KIEVII.graphicElements.Button.prototype.refresh = function () {
     if (this.drawClass === undefined) {
         throw new Error("Error: drawClass is undefined!");
     }
@@ -169,7 +171,7 @@ Button.prototype.refresh = function () {
     }
 };
 
-Button.prototype.onCompletion = function () {
+KIEVII.graphicElements.Button.prototype.onCompletion = function () {
     // Now, we've loaded every image. We can calculate max width and height now.
     var i;
     for (i = 0; i < this.imagesArray.length; i += 1) {
@@ -183,6 +185,6 @@ Button.prototype.onCompletion = function () {
     console.log ("Image starts at ", this.xOrigin, this.yOrigin, " width and height are ", this.width, this.height);
 
     // Now, we call the superclass
-    this.tempCompletion = Element.prototype.onCompletion;
+    this.tempCompletion = KIEVII.graphicElements.Element.prototype.onCompletion;
     this.tempCompletion();
 };

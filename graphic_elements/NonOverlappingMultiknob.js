@@ -1,16 +1,18 @@
-function NonOverlappingMultiknob(name, topleft, specArgs) {
+KIEVII.namespace('graphicElements.NonOverlappingMultiknob');
+
+KIEVII.graphicElements.NonOverlappingMultiknob = function (name, topleft, specArgs) {
     if (arguments.length) {
         this.getready(name, topleft, specArgs);
     }
 }
 
 //inherit from the Element prototype
-NonOverlappingMultiknob.prototype = new Element();
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype = new graphicElements.NonOverlappingMultiknobElement();
 //put the correct constructor reference back (not essential)
-NonOverlappingMultiknob.prototype.constructor = NonOverlappingMultiknob;
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype.constructor = NonOverlappingMultiknob;
 
 
-NonOverlappingMultiknob.prototype.getready = function (name, topleft, specArgs) {
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype.getready = function (name, topleft, specArgs) {
     //reference the getready method from the parent class
     this.tempReady = Element.prototype.getready;
     //and run it as if it were part of this object
@@ -61,7 +63,7 @@ NonOverlappingMultiknob.prototype.getready = function (name, topleft, specArgs) 
     this.drawItself = true;
 };
 
-NonOverlappingMultiknob.prototype.isInROI = function (x, y) {
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype.isInROI = function (x, y) {
 
     var nKnobs,
         i;
@@ -80,7 +82,7 @@ NonOverlappingMultiknob.prototype.isInROI = function (x, y) {
 
 };
 
-NonOverlappingMultiknob.prototype.onMouseDown = function (x, y) {
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype.onMouseDown = function (x, y) {
 
     var knobret,
         inROI;
@@ -96,7 +98,7 @@ NonOverlappingMultiknob.prototype.onMouseDown = function (x, y) {
     
 };
 
-NonOverlappingMultiknob.prototype.onMouseUp = function (x, y) {
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype.onMouseUp = function (x, y) {
 
     var knobret;
 
@@ -108,7 +110,7 @@ NonOverlappingMultiknob.prototype.onMouseUp = function (x, y) {
     return knobret;
 }
 
-NonOverlappingMultiknob.prototype.onMouseMove = function (x, y) {
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype.onMouseMove = function (x, y) {
 
     var knobret;
 
@@ -125,7 +127,7 @@ NonOverlappingMultiknob.prototype.onMouseMove = function (x, y) {
     return undefined;
 }
 
-NonOverlappingMultiknob.prototype.setValue = function (slot, value) {
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype.setValue = function (slot, value) {
 
     var temp_value,
         knobN;
@@ -190,7 +192,7 @@ NonOverlappingMultiknob.prototype.setValue = function (slot, value) {
     }
 };
 
-NonOverlappingMultiknob.prototype.refresh = function () {
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype.refresh = function () {
     
     var i;
 
@@ -210,14 +212,14 @@ NonOverlappingMultiknob.prototype.refresh = function () {
     }
 };
 
-NonOverlappingMultiknob.prototype.getValue = function (slot) {
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype.getValue = function (slot) {
     //Retrieve the knob numer here. Kind of an hack, mh?
     var knobN = this.values[slot];
     //Get the values from the subknob. Same as setValue.
     this.KnobArray[knobN].getValue("knobvalue");
 };
 
-NonOverlappingMultiknob.prototype.getStatus = function () {
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype.getStatus = function () {
 
     // Calculate the status, based on knob status.
     var total = 0,
@@ -239,7 +241,7 @@ NonOverlappingMultiknob.prototype.getStatus = function () {
     return tempStatus;
 };
 
-NonOverlappingMultiknob.prototype.isComplete = function () {
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype.isComplete = function () {
 
     // TODO:
     // This is ok as long as we call isComplete() every 100 ms.
@@ -266,8 +268,8 @@ NonOverlappingMultiknob.prototype.isComplete = function () {
     
 };
 
-NonOverlappingMultiknob.prototype.onCompletion = function () {
+KIEVII.graphicElements.NonOverlappingMultiknob.prototype.onCompletion = function () {
     // Now, we call the superclass
-    this.tempCompletion = Element.prototype.onCompletion;
+    this.tempCompletion = KIEVII.graphicElements.Element.prototype.onCompletion;
     this.tempCompletion();
 }

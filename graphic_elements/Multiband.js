@@ -1,16 +1,18 @@
-function Multiband(name, topleft, specArgs) {
+KIEVII.namespace('graphicElements.Multiband');
+
+KIEVII.graphicElements.Multiband = function (name, topleft, specArgs) {
     if (arguments.length) {
         this.getready(name, topleft, specArgs);
     }
 }
 
 //inherit from the Element prototype
-Multiband.prototype = new Element();
+KIEVII.graphicElements.Multiband.prototype = new KIEVII.graphicElements.Element();
 //put the correct constructor reference back (not essential)
-Multiband.prototype.constructor = Multiband;
+KIEVII.graphicElements.Multiband.prototype.constructor = KIEVII.graphicElements.Multiband;
 
 
-Multiband.prototype.getready = function (name, topleft, specArgs) {
+KIEVII.graphicElements.Multiband.prototype.getready = function (name, topleft, specArgs) {
 
     if (specArgs === undefined) {
         throw new Error("Error: specArgs is undefined!");
@@ -20,7 +22,7 @@ Multiband.prototype.getready = function (name, topleft, specArgs) {
         i;
 
     //reference the getready method from the parent class
-    this.tempReady = Element.prototype.getready;
+    this.tempReady = KIEVII.graphicElements.Element.prototype.getready;
     //and run it as if it were part of this object
     this.tempReady(name, topleft);
     
@@ -59,7 +61,7 @@ Multiband.prototype.getready = function (name, topleft, specArgs) {
 
 };
 
-Multiband.prototype.calculateSidebands = function () {
+KIEVII.graphicElements.Multiband.prototype.calculateSidebands = function () {
 
     var startValue,
         endValue,
@@ -84,7 +86,7 @@ Multiband.prototype.calculateSidebands = function () {
 
 };
 
-Multiband.prototype.isInROI = function (x, y) {
+KIEVII.graphicElements.Multiband.prototype.isInROI = function (x, y) {
     var proximity,
         i,
         curSB;
@@ -129,7 +131,7 @@ Multiband.prototype.isInROI = function (x, y) {
     return false;
 };
 
-Multiband.prototype.onROI = function (start_x, start_y, curr_x, curr_y) {
+KIEVII.graphicElements.Multiband.prototype.onROI = function (start_x, start_y, curr_x, curr_y) {
 
     var temp_value,
             to_set,
@@ -235,7 +237,7 @@ Multiband.prototype.onROI = function (start_x, start_y, curr_x, curr_y) {
 
 };
 
-Multiband.prototype.setValue = function (slot, value) {
+KIEVII.graphicElements.Multiband.prototype.setValue = function (slot, value) {
 
     var bandn,
         bandtype,
@@ -316,7 +318,7 @@ Multiband.prototype.setValue = function (slot, value) {
 };
 
 
-Multiband.prototype.refresh = function (clear) {
+KIEVII.graphicElements.Multiband.prototype.refresh = function (clear) {
 
     var height,
         range,

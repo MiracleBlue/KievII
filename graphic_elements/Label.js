@@ -1,17 +1,19 @@
-function Label(name, topleft, specArgs) {
+KIEVII.namespace('graphicElements.Label');
+
+KIEVII.graphicElements.Label = function(name, topleft, specArgs) {
     if (arguments.length) {
         this.getready(name, topleft, specArgs);
     }
 }
 
 //inherit from the Element prototype
-Label.prototype = new Element();
+KIEVII.graphicElements.Label.prototype = new KIEVII.graphicElements.Element();
 //put the correct constructor reference back (not essential)
-Label.prototype.constructor = Label;
+KIEVII.graphicElements.Label.prototype.constructor = KIEVII.graphicElements.Label;
 
-Label.prototype.getready = function (name, topleft, specArgs) {
+KIEVII.graphicElements.Label.prototype.getready = function (name, topleft, specArgs) {
     //Reference the getready method from the parent class
-    this.tempReady = Element.prototype.getready;
+    this.tempReady = KIEVII.graphicElements.Element.prototype.getready;
     //and run it as if it were part of this object
     this.tempReady(name, topleft, specArgs);
 
@@ -28,7 +30,7 @@ Label.prototype.getready = function (name, topleft, specArgs) {
 };
 
 // This methods returns true if the point given belongs to this element.
-Label.prototype.isInROI = function (x, y) {
+KIEVII.graphicElements.Label.prototype.isInROI = function (x, y) {
     if ((x > this.xOrigin) && (y > this.yOrigin)) {
         if ((x < (this.xOrigin + this.width)) && (y < (this.yOrigin + this.height))) {
             //console.log(this.name, "point ", x, y, " is in ROI ", this.xOrigin, this.yOrigin, this.xOrigin + this.width, this.yOrigin + this.height);
@@ -42,22 +44,22 @@ Label.prototype.isInROI = function (x, y) {
 // Text filter automatically parses and translates the value.
 // This one does nothing but round value. TODO this should be overridden
 // and definitely NOT here.
-Label.prototype.textFilter = function (value) {
+KIEVII.graphicElements.Label.prototype.textFilter = function (value) {
     return value.toFixed(3);
 };
 
 // Setters
-Label.prototype.setValue = function (slot, value) {
+KIEVII.graphicElements.Label.prototype.setValue = function (slot, value) {
 
     if (this.textFilter !== undefined) {
         var temp_value = this.textFilter(value);
     }
 
-    this.tempsetValue = Element.prototype.setValue;
+    this.tempsetValue = KIEVII.graphicElements.Element.prototype.setValue;
     this.tempsetValue(slot, temp_value);
 };
  
-Label.prototype.refresh = function () {
+KIEVII.graphicElements.Label.prototype.refresh = function () {
     var text;
     if (this.drawClass === undefined) {
         throw new Error("Error: drawClass is undefined!");

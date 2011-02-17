@@ -1,23 +1,24 @@
-// Ok, this Slider is an horizontal one. Must implement the vertical one as well.
-function Slider(name, topleft, specArgs) {
+KIEVII.namespace('graphicElements.Slider');
+
+KIEVII.graphicElements.Slider = function (name, topleft, specArgs) {
     if (arguments.length) {
         this.getready(name, topleft, specArgs);
     }
 }
 
 //inherit from the Element prototype
-Slider.prototype = new Element();
+KIEVII.graphicElements.Slider.prototype = new KIEVII.graphicElements.Element();
 //put the correct constructor reference back (not essential)
-Slider.prototype.constructor = Slider;
+KIEVII.graphicElements.Slider.prototype.constructor = KIEVII.graphicElements.Slider;
 
-Slider.prototype.getready = function (name, topleft, specArgs /*sliderImg, knobImg*/) {
+KIEVII.graphicElements.Slider.prototype.getready = function (name, topleft, specArgs /*sliderImg, knobImg*/) {
 
     if (specArgs === undefined) {
         throw new Error("Error: specArgs is undefined!");
     }
 
     //reference the getready method from the parent class
-    this.tempReady = Element.prototype.getready;
+    this.tempReady = KIEVII.graphicElements.Element.prototype.getready;
     //and run it as if it were part of this object
     this.tempReady(name, topleft, specArgs);
     //now that all required properties have been inherited
@@ -51,7 +52,7 @@ Slider.prototype.getready = function (name, topleft, specArgs /*sliderImg, knobI
 
 };
 
-Slider.prototype.onLoad = function (that) {
+KIEVII.graphicElements.Slider.prototype.onLoad = function (that) {
     return function () {
         that.objectsLoaded += 1;
         if (that.objectsLoaded === that.objectsTotal) {
@@ -63,7 +64,7 @@ Slider.prototype.onLoad = function (that) {
 
 // This method returns an x position given the Slider value.
 /*jslint nomen: false*/
-Slider.prototype._getKnobPosition = function () {
+KIEVII.graphicElements.Slider.prototype._getKnobPosition = function () {
 /*jslint nomen: true*/
     var ret;
 
@@ -90,7 +91,7 @@ Slider.prototype._getKnobPosition = function () {
 };
 
 // This method returns true if the point given belongs to this Slider.
-Slider.prototype.isInROI = function (x, y) {
+KIEVII.graphicElements.Slider.prototype.isInROI = function (x, y) {
     switch(this.type) {
         case "horizontal":
             if ((x > this._getKnobPosition()) && (y > this.yOrigin)) {
@@ -116,7 +117,7 @@ Slider.prototype.isInROI = function (x, y) {
     return false;
 };
 
-Slider.prototype.onMouseDown = function (x, y) {
+KIEVII.graphicElements.Slider.prototype.onMouseDown = function (x, y) {
     if (this.isInROI(x, y)) {
         this.triggered = true;
         // This remembers the difference between the current knob start and
@@ -138,13 +139,13 @@ Slider.prototype.onMouseDown = function (x, y) {
     return undefined;
 };
 
-Slider.prototype.onMouseUp = function (x, y) {
+KIEVII.graphicElements.Slider.prototype.onMouseUp = function (x, y) {
     this.triggered = false;
     this.drag_offset = undefined;
     return undefined;
 };
 
-Slider.prototype.onMouseMove = function (curr_x, curr_y) {
+KIEVII.graphicElements.Slider.prototype.onMouseMove = function (curr_x, curr_y) {
 
         if (this.triggered === true) {
             var to_set,
@@ -181,7 +182,7 @@ Slider.prototype.onMouseMove = function (curr_x, curr_y) {
     };
 
 // Setters
-Slider.prototype.setValue = function (slot, value) {
+KIEVII.graphicElements.Slider.prototype.setValue = function (slot, value) {
 
     if (this.values[slot] === value) {
         // Don't update and refresh, just return!
@@ -194,12 +195,12 @@ Slider.prototype.setValue = function (slot, value) {
     }
 
     // Now, we call the superclass
-    this.tempsetValue = Element.prototype.setValue;
+    this.tempsetValue = KIEVII.graphicElements.Element.prototype.setValue;
     this.tempsetValue(slot, value);
 
 };
 
-Slider.prototype.refresh = function () {
+KIEVII.graphicElements.Slider.prototype.refresh = function () {
     if (this.drawClass === undefined) {
         throw new Error("Error: drawClass is undefined!");
     }
@@ -247,7 +248,7 @@ Slider.prototype.refresh = function () {
     }
 };
 
-Slider.prototype.onCompletion = function () {
+KIEVII.graphicElements.Slider.prototype.onCompletion = function () {
     // Images were loaded, we can take their width and height.
     this.width = this.sliderImage.width;
     this.height = this.sliderImage.height;
@@ -277,6 +278,6 @@ Slider.prototype.onCompletion = function () {
       }
     
     // Now, we call the superclass
-    this.tempCompletion = Element.prototype.onCompletion;
+    this.tempCompletion = KIEVII.graphicElements.Element.prototype.onCompletion;
     this.tempCompletion();
 };

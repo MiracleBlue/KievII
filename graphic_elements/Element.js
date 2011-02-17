@@ -1,10 +1,31 @@
-function Element(name, topleft) {
+var KIEVII = KIEVII || {};
+KIEVII.namespace = function (ns_string) {
+    var parts = ns_string.split('.'),
+        parent = KIEVII,
+        i;
+    // strip redundant leading global
+    if (parts[0] === "KIEVII") {
+        parts = parts.slice(1);
+    }
+    for (i = 0; i < parts.length; i += 1) {
+        // create a property if it doesn't exist
+        if (typeof parent[parts[i]] === "undefined") {
+            parent[parts[i]] = {};
+        }
+        parent = parent[parts[i]];
+    }
+    return parent;
+};
+
+KIEVII.namespace('graphicElements.Element');
+
+KIEVII.graphicElements.Element = function (name, topleft) {
     if (arguments.length) {
         this.getready(name, topleft);
     }
 }
 
-Element.prototype.getready = function (name, topleft, specArgs) {
+KIEVII.graphicElements.Element.prototype.getready = function (name, topleft, specArgs) {
 
     if (specArgs.isClickable !== true) {
         this.isClickable = false;
@@ -46,12 +67,12 @@ Element.prototype.getready = function (name, topleft, specArgs) {
 };
 
 // Private function
-Element.prototype.isInROI = function (x, y) {
+KIEVII.graphicElements.Element.prototype.isInROI = function (x, y) {
     // This is the abstract class.
     return false;
 };
 
-Element.prototype.getValues = function () {
+KIEVII.graphicElements.Element.prototype.getValues = function () {
     var tempArray = [],
         i;
     for (i in this.values) {
@@ -63,23 +84,23 @@ Element.prototype.getValues = function () {
     return tempArray;
 };
 
-Element.prototype.getXCoord = function () {
+KIEVII.graphicElements.Element.prototype.getXCoord = function () {
     return this.xOrigin;
 };
 
-Element.prototype.getYCoord = function () {
+KIEVII.graphicElements.Element.prototype.getYCoord = function () {
     return this.yOrigin;
 };
 
-Element.prototype.getWidth = function () {
+KIEVII.graphicElements.Element.prototype.getWidth = function () {
     return this.width;
 };
 
-Element.prototype.getHeight = function () {
+KIEVII.graphicElements.Element.prototype.getHeight = function () {
     return this.height;
 };
 
-Element.prototype.getValue = function (slot) {
+KIEVII.graphicElements.Element.prototype.getValue = function (slot) {
     if (this.values[slot] === undefined) {
         throw new Error("Slot " + slot + " not present or value undefined");
     }
@@ -88,15 +109,15 @@ Element.prototype.getValue = function (slot) {
     }
 };
 
-Element.prototype.getStatus = function () {
+KIEVII.graphicElements.Element.prototype.getStatus = function () {
     return {"objectsTotal" : this.objectsTotal, "objectsLoaded" : this.objectsLoaded};
 };
 
-Element.prototype.isComplete = function () {
+KIEVII.graphicElements.Element.prototype.isComplete = function () {
     return this.completed;
 };
 
-Element.prototype.onCompletion = function () {
+KIEVII.graphicElements.Element.prototype.onCompletion = function () {
 
     // Call the callback if there's one.
     if (typeof (this.onComplete) === "function") {
@@ -107,7 +128,7 @@ Element.prototype.onCompletion = function () {
 };
 
 // Setters
-Element.prototype.setValue = function (slot, value) {
+KIEVII.graphicElements.Element.prototype.setValue = function (slot, value) {
 
     var temp_value = value;
 
@@ -134,35 +155,35 @@ Element.prototype.setValue = function (slot, value) {
 
 };
 
-Element.prototype.setClickable = function (isClickable) {
+KIEVII.graphicElements.Element.prototype.setClickable = function (isClickable) {
     this.isClickable = isClickable;
 };
 
-Element.prototype.setDrawsItself = function (value) {
+KIEVII.graphicElements.Element.prototype.setDrawsItself = function (value) {
     this.drawItself = value;
 };
 
 // Refresh. This is the basic action.
-Element.prototype.refresh = function () {
+KIEVII.graphicElements.Element.prototype.refresh = function () {
     this.drawFunc();
 };
 
-Element.prototype.getName = function () {
+KIEVII.graphicElements.Element.prototype.getName = function () {
     return this.name;
 };
 
-Element.prototype.setDrawClass = function (drawClass) {
+KIEVII.graphicElements.Element.prototype.setDrawClass = function (drawClass) {
     this.drawClass = drawClass;
 };
 
-Element.prototype.onMouseMove = function (x,y) {
+KIEVII.graphicElements.Element.prototype.onMouseMove = function (x,y) {
     return undefined;
 };
 
-Element.prototype.onMouseDown = function (x,y) {
+KIEVII.graphicElements.Element.prototype.onMouseDown = function (x,y) {
     return undefined;
 };
 
-Element.prototype.onMouseUp = function (x,y) {
+KIEVII.graphicElements.Element.prototype.onMouseUp = function (x,y) {
     return undefined;
 };

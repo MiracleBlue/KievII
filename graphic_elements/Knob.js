@@ -1,22 +1,24 @@
-function Knob(name, topleft, specArgs) {
+KIEVII.namespace('graphicElements.Background');
+
+KIEVII.graphicElements.Knob = function(name, topleft, specArgs) {
     if (arguments.length) {
         this.getready(name, topleft, specArgs);
     }
 }
 
 //inherit from the Element prototype
-Knob.prototype = new Element();
+KIEVII.graphicElements.Knob.prototype = new KIEVII.graphicElements.Element();
 //put the correct constructor reference back (not essential)
-Knob.prototype.constructor = Knob;
+KIEVII.graphicElements.Knob.prototype.constructor = KIEVII.graphicElements.Knob;
 
-Knob.prototype.getready = function (name, topleft, specArgs) {
+KIEVII.graphicElements.Knob.prototype.getready = function (name, topleft, specArgs) {
 
     if (specArgs === undefined) {
         throw new Error("Error: specArgs is undefined!");
     }
     
     //reference the getready method from the parent class
-    this.tempReady = Element.prototype.getready;
+    this.tempReady = KIEVII.graphicElements.Element.prototype.getready;
     //and run it as if it were part of this object
     this.tempReady(name, topleft, specArgs);
     //now that all required properties have been inherited
@@ -62,7 +64,7 @@ Knob.prototype.getready = function (name, topleft, specArgs) {
 
 };
 
-Knob.prototype.onLoad = function (that) {
+KIEVII.graphicElements.Knob.prototype.onLoad = function (that) {
     return function () {
         that.objectsLoaded += 1;
         if (that.objectsLoaded === that.objectsTotal) {
@@ -75,7 +77,7 @@ Knob.prototype.onLoad = function (that) {
 
 // This method returns an image index given the knob value.
 /*jslint nomen: false*/
-Knob.prototype._getImageNum = function () {
+KIEVII.graphicElements.Knob.prototype._getImageNum = function () {
 /*jslint nomen: true*/
     if ((this.values.knobvalue < 0) || (this.values.knobvalue > 1)) {
         // Do nothing
@@ -87,7 +89,7 @@ Knob.prototype._getImageNum = function () {
 
 // This method returns an image object given the knob value.
 /*jslint nomen: false*/
-Knob.prototype._getImage = function () {
+KIEVII.graphicElements.Knob.prototype._getImage = function () {
 /*jslint nomen: true*/
 
     /*jslint nomen: false*/
@@ -97,7 +99,7 @@ Knob.prototype._getImage = function () {
 };
 
 // This method returns true if the point given belongs to this knob.
-Knob.prototype.isInROI = function (x, y) {
+KIEVII.graphicElements.Knob.prototype.isInROI = function (x, y) {
     if ((x > this.xOrigin) && (y > this.yOrigin)) {
         if ((x < (this.xOrigin + this.width)) && (y < (this.yOrigin + this.height))) {
             //console.log("Knob: ", this.name, " point ", x, y, " is in ROI ", this.xOrigin, this.yOrigin, this.xOrigin + this.width, this.yOrigin + this.height);
@@ -109,7 +111,7 @@ Knob.prototype.isInROI = function (x, y) {
     return false;
 };
 
-Knob.prototype.onMouseDown = function (x, y) {
+KIEVII.graphicElements.Knob.prototype.onMouseDown = function (x, y) {
 
     var inROI = this.isInROI(x, y);
     // Save the starting point if event happened in our ROI.
@@ -122,7 +124,7 @@ Knob.prototype.onMouseDown = function (x, y) {
     return undefined;
 };
 
-Knob.prototype.onMouseUp = function (x, y) {
+KIEVII.graphicElements.Knob.prototype.onMouseUp = function (x, y) {
 
     // Reset the starting point.
     this.start_x = undefined;
@@ -133,7 +135,7 @@ Knob.prototype.onMouseUp = function (x, y) {
 
 };
 
-Knob.prototype.onMouseMove = function (curr_x, curr_y) {
+KIEVII.graphicElements.Knob.prototype.onMouseMove = function (curr_x, curr_y) {
 
     if ((this.start_x !== undefined) && (this.start_y !== undefined)) {
 
@@ -168,7 +170,7 @@ Knob.prototype.onMouseMove = function (curr_x, curr_y) {
 };
 
 // Setters
-Knob.prototype.setValue = function (slot, value) {
+KIEVII.graphicElements.Knob.prototype.setValue = function (slot, value) {
     var temp_value = value;
 
     if ((temp_value < 0) || (temp_value > 1)) {
@@ -178,12 +180,12 @@ Knob.prototype.setValue = function (slot, value) {
     }
 
     // Now, we call the superclass
-    this.tempsetValue = Element.prototype.setValue;
+    this.tempsetValue = KIEVII.graphicElements.Element.prototype.setValue;
     this.tempsetValue(slot, value);
 
 };
         
-Knob.prototype.refresh = function () {
+KIEVII.graphicElements.Knob.prototype.refresh = function () {
 
     if (this.drawClass === undefined) {
         throw new Error("Error: drawClass is undefined!");
@@ -211,7 +213,7 @@ Knob.prototype.refresh = function () {
     
 };
 
-Knob.prototype.onCompletion = function () {
+KIEVII.graphicElements.Knob.prototype.onCompletion = function () {
     // Now, we've loaded every image. We can calculate max width and height now.
     var i;
     for (i = 0; i < this.imagesArray.length; i += 1) {
@@ -224,6 +226,6 @@ Knob.prototype.onCompletion = function () {
     }
 
     // Now, we call the superclass
-    this.tempCompletion = Element.prototype.onCompletion;
+    this.tempCompletion = KIEVII.graphicElements.Element.prototype.onCompletion;
     this.tempCompletion();
 };

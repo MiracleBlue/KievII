@@ -1,17 +1,19 @@
-function Wavebox(name, topleft, specArgs) {
+KIEVII.namespace('graphicElements.Wavebox');
+
+KIEVII.graphicElements.Wavebox = function (name, topleft, specArgs) {
     if (arguments.length) {
         this.getready(name, topleft, specArgs);
     }
 }
 
 //inherit from the Element prototype
-Wavebox.prototype = new Element();
+KIEVII.graphicElements.Wavebox.prototype = new KIEVII.graphicElements.Element();
 //put the correct constructor reference back (not essential)
-Wavebox.prototype.constructor = Wavebox;
+KIEVII.graphicElements.Wavebox.prototype.constructor = KIEVII.graphicElements.Wavebox;
 
-Wavebox.prototype.getready = function (name, topleft, specArgs) {
+KIEVII.graphicElements.Wavebox.prototype.getready = function (name, topleft, specArgs) {
     //Reference the getready method from the parent class
-    this.tempReady = Element.prototype.getready;
+    this.tempReady = KIEVII.graphicElements.Element.prototype.getready;
     //and run it as if it were part of this object
     this.tempReady(name, topleft, specArgs);
 
@@ -35,7 +37,7 @@ Wavebox.prototype.getready = function (name, topleft, specArgs) {
 };
 
 // This methods returns true if the point given belongs to this element.
-Wavebox.prototype.isInROI = function (x, y) {
+KIEVII.graphicElements.Wavebox.prototype.isInROI = function (x, y) {
     if ((x > this.xOrigin) && (y > this.yOrigin)) {
         if ((x < (this.xOrigin + this.width)) && (y < (this.yOrigin + this.height))) {
             //console.log(this.name, "point ", x, y, " is in ROI ", this.xOrigin, this.yOrigin, this.xOrigin + this.width, this.yOrigin + this.height);
@@ -46,7 +48,7 @@ Wavebox.prototype.isInROI = function (x, y) {
     return false;
 };
 
-Wavebox.prototype.setValue = function (slot, value) {
+KIEVII.graphicElements.Wavebox.prototype.setValue = function (slot, value) {
 
     // Won't call the parent: this element has a custom way to set values.
 
@@ -96,7 +98,7 @@ Wavebox.prototype.setValue = function (slot, value) {
     }
 };
 
-Wavebox.prototype.refresh = function () {
+KIEVII.graphicElements.Wavebox.prototype.refresh = function () {
     if (this.drawClass === undefined) {
         throw new Error("Error: drawClass is undefined!");
     }
@@ -132,7 +134,7 @@ Wavebox.prototype.refresh = function () {
 
 //Non-interface functions
 
-Wavebox.prototype.sampleindexToY = function (samplenum) {
+KIEVII.graphicElements.Wavebox.prototype.sampleindexToY = function (samplenum) {
     //Check boundaries
     if ((samplenum >= this.values.endsample) || (this.values.waveboxsignal[samplenum] === undefined) || (this.values.waveboxsignal[samplenum] === NaN)) {
         throw new Error("Error: problem with sample index: ", samplenum, " or sample value: ", this.values.waveboxsignal[samplenum]);
@@ -150,7 +152,7 @@ Wavebox.prototype.sampleindexToY = function (samplenum) {
 
 }
 
-Wavebox.prototype.sampleXToIndex = function (xcoord) {
+KIEVII.graphicElements.Wavebox.prototype.sampleXToIndex = function (xcoord) {
 
     var factor = ((this.values.endsample - this.values.startsample) / this.width);
     var x = xcoord * factor;
@@ -162,7 +164,7 @@ Wavebox.prototype.sampleXToIndex = function (xcoord) {
 
 }
 
-Wavebox.prototype.calculateSampleCoord = function (xcoord) {
+KIEVII.graphicElements.Wavebox.prototype.calculateSampleCoord = function (xcoord) {
     // this returns the absolute x,y coordinates from the sample in x position, relative to the x-origin of the box
     var ret = {};
     ret.x = xcoord + this.xOrigin;

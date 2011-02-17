@@ -1,4 +1,6 @@
-function UI(domElement) {
+KIEVII.namespace('UI');
+
+KIEVII.UI = function (domElement) {
 
     // <EVENT HANDLING>
 
